@@ -103,37 +103,49 @@ button {
 </div>
 
 <script>
-function addTask() {
-  const subject = document.getElementById("subject").value.trim();
-  const task = document.getElementById("task").value.trim();
-  const date = document.getElementById("date").value;
+document.addEventListener("DOMContentLoaded", function () {
 
-  if (!subject || !task || !date) {
-    alert("Please fill all details!");
-    return;
-  }
+  const subjectInput = document.getElementById("subject");
+  const taskInput = document.getElementById("task");
+  const dateInput = document.getElementById("date");
+  const taskList = document.getElementById("taskList");
+  const addButton = document.querySelector("button");
 
-  const item = document.createElement("div");
-  item.className = "task";
+  addButton.addEventListener("click", function () {
 
-  const details = document.createElement("span");
-  details.textContent = subject + " - " + task + " (" + date + ")";
+    const subject = subjectInput.value.trim();
+    const task = taskInput.value.trim();
+    const date = dateInput.value;
 
-  const removeBtn = document.createElement("button");
-  removeBtn.textContent = "Delete";
-  removeBtn.onclick = function() {
-    item.remove();
-  };
+    if (!subject || !task || !date) {
+      alert("Please fill all details!");
+      return;
+    }
 
-  item.appendChild(details);
-  item.appendChild(removeBtn);
+    const item = document.createElement("div");
+    item.className = "task";
 
-  document.getElementById("taskList").appendChild(item);
+    const details = document.createElement("span");
+    details.textContent = subject + " - " + task + " (" + date + ")";
 
-  document.getElementById("subject").value = "";
-  document.getElementById("task").value = "";
-  document.getElementById("date").value = "";
-}
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+
+    deleteButton.addEventListener("click", function () {
+      item.remove();
+    });
+
+    item.appendChild(details);
+    item.appendChild(deleteButton);
+    taskList.appendChild(item);
+
+    subjectInput.value = "";
+    taskInput.value = "";
+    dateInput.value = "";
+
+  });
+
+});
 </script>
 
 </body>
