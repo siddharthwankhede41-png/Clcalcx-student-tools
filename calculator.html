@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scientific Calculator - CalcX</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7ff;
+  color: #172033;
+  padding: 20px;
+}
+
+header {
+  max-width: 430px;
+  margin: 15px auto 25px;
+}
+
+header a {
+  color: #635bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 8px;
+  color: #635bff;
+}
+
+.subtitle {
+  text-align: center;
+  color: #667085;
+  margin-bottom: 25px;
+}
+
+.calculator {
+  max-width: 430px;
+  margin: auto;
+  padding: 22px;
+  background: white;
+  border-radius: 22px;
+  box-shadow: 0 8px 30px #00000010;
+}
+
+#display {
+  width: 100%;
+  height: 85px;
+  padding: 15px;
+  border: 1px solid #e3e5f0;
+  border-radius: 12px;
+  background: #f8f9ff;
+  font-size: 28px;
+  text-align: right;
+  margin-bottom: 18px;
+  color: #172033;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+button {
+  height: 58px;
+  border: none;
+  border-radius: 12px;
+  background: #f0f1fa;
+  font-size: 19px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #172033;
+}
+
+button:active { transform: scale(.96); }
+
+.operator {
+  background: #e9e8ff;
+  color: #635bff;
+}
+
+.clear {
+  background: #ffe9e9;
+  color: #e04444;
+}
+
+.equal {
+  background: #635bff;
+  color: white;
+}
+
+footer {
+  text-align: center;
+  margin: 25px;
+  color: #667085;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html">← Back to CalcX</a>
+</header>
+
+<h1>Scientific Calculator</h1>
+<p class="subtitle">Calculate smarter with CalcX</p>
+
+<div class="calculator">
+  <input id="display" value="0" readonly>
+
+  <div class="buttons">
+    <button class="clear" onclick="clearDisplay()">AC</button>
+    <button onclick="removeLast()">DEL</button>
+    <button class="operator" onclick="add('%')">%</button>
+    <button class="operator" onclick="add('/')">÷</button>
+
+    <button onclick="add('7')">7</button>
+    <button onclick="add('8')">8</button>
+    <button onclick="add('9')">9</button>
+    <button class="operator" onclick="add('*')">×</button>
+
+    <button onclick="add('4')">4</button>
+    <button onclick="add('5')">5</button>
+    <button onclick="add('6')">6</button>
+    <button class="operator" onclick="add('-')">−</button>
+
+    <button onclick="add('1')">1</button>
+    <button onclick="add('2')">2</button>
+    <button onclick="add('3')">3</button>
+    <button class="operator" onclick="add('+')">+</button>
+
+    <button onclick="add('(')">(</button>
+    <button onclick="add('0')">0</button>
+    <button onclick="add('.')">.</button>
+    <button onclick="add(')')">)</button>
+
+    <button class="operator" onclick="square()">x²</button>
+    <button class="operator" onclick="sqrt()">√</button>
+    <button class="operator" onclick="add('^')">xʸ</button>
+    <button class="equal" onclick="calculate()">=</button>
+  </div>
+</div>
+
+<footer>© 2026 CalcX. All Rights Reserved.</footer>
+
+<script>
+const display = document.getElementById("display");
+let expression = "";
+let finished = false;
+
+function update() {
+  display.value = expression || "0";
+}
+
+function add(value) {
+  if (finished && /[0-9.(]/.test(value)) {
+    expression = "";
+  }
+  finished = false;
+  expression += value;
+  update();
+}
+
+function clearDisplay() {
+  expression = "";
+  finished = false;
+  update();
+}
+
+function removeLast() {
+  expression = expression.slice(0, -1);
+  finished = false;
+  update();
+}
+
+// Safe mathematical expression parser
+function evaluate(input) {
+  const tokens = input.match(/\d*\.?\d+|[()+\-*/%^]/g) || [];
+  if (tokens.join("") !== input.replace(/\s/g, "")) {
+    throw Error("Invalid expression");
+  }
+
+  let i = 0;
+
+  function primary() {
+    if (tokens[i] === "-") {
+      i++;
+      return -primary();
+    }
+
+    if (tokens[i] === "+") {
+      i++;
+      return primary();
+    }
+
+    if (tokens[i] === "(") {
+      i++;
+      const value = sum();
+      if (tokens[i++] !== ")") throw Error("Missing bracket");
+      return value;
+    }
+
+    const value = Number(tokens[i++]);
+    if (!Number.isFinite(value)) throw Error("Invalid number");
+    return value;
+  }
+
+  function power() {
+    let value = primary();
+    if (tokens[i] === "^") {
+      i++;
+      value = Math.pow(value, power());
+    }
+    return value;
+  }
+
+  function product() {
+    let value = power();
+
+    while (["*", "/", "%"].includes(tokens[i])) {
+      const op = tokens[i++];
+      const next = power();
+
+      if (op === "*") value *= next;
+      if (op === "/") value /= next;
+      if (op === "%") value %= next;
+    }
+    return value;
+  }
+
+  function sum() {
+    let value = product();
+
+    while (tokens[i] === "+" || tokens[i] === "-") {
+      const op = tokens[i++];
+      const next = product();
+      value = op === "+" ? value + next : value - next;
+    }
+    return value;
+  }
+
+  const result = sum();
+
+  if (i !== tokens.length || !Number.isFinite(result)) {
+    throw Error("Invalid calculation");
+  }
+
+  return result;
+}
+
+function calculate() {
+  try {
+    if (!expression) return;
+    const result = evaluate(expression);
+    expression = String(Number(result.toPrecision(12)));
+    finished = true;
+    update();
+  } catch {
+    display.value = "Error";
+    expression = "";
+    finished = true;
+  }
+}
+
+function square() {
+  if (!expression) return;
+  expression = "(" + expression + ")^2";
+  calculate();
+}
+
+function sqrt() {
+  if (!expression) return;
+  try {
+    const result = evaluate(expression);
+    if (result < 0) throw Error();
+    expression = String(Number(Math.sqrt(result).toPrecision(12)));
+    finished = true;
+    update();
+  } catch {
+    display.value = "Error";
+    expression = "";
+    finished = true;
+  }
+}
+</script>
+
+</body>
+</html>
