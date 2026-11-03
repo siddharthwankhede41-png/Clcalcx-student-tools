@@ -133,13 +133,27 @@ document.addEventListener("DOMContentLoaded", function () {
     openBtn.style.background = "#2563eb";
 
     openBtn.addEventListener("click", function () {
-      alert(
-        "CLASS: " + className +
-        "\n\nSUBJECT: " + subject +
-        "\n\nTASK: " + task +
-        "\n\nDATE: " + date
-      );
-    });
+
+  let info = item.querySelector(".task-details");
+
+  if (info) {
+    info.remove();
+    openBtn.textContent = "Open";
+    return;
+  }
+
+  info = document.createElement("div");
+  info.className = "task-details";
+
+  info.innerHTML =
+    "<p><b>Class:</b> " + className + "</p>" +
+    "<p><b>Subject:</b> " + subject + "</p>" +
+    "<p><b>Task:</b> " + task + "</p>" +
+    "<p><b>Date:</b> " + date + "</p>";
+
+  item.appendChild(info);
+  openBtn.textContent = "Close";
+});
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
