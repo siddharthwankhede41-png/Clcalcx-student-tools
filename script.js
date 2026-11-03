@@ -20,3 +20,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+document.addEventListener("DOMContentLoaded", function () {
+  const themeButton = document.getElementById("themeToggle");
+
+  if (themeButton) {
+    themeButton.addEventListener("click", function () {
+      document.body.classList.toggle("dark-mode");
+
+      themeButton.textContent =
+        document.body.classList.contains("dark-mode")
+          ? "☀️ Light Mode"
+          : "🌙 Dark Mode";
+    });
+  }
+});
