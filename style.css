@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7ff;
+  color: #172033;
+}
+
+header {
+  background: white;
+  padding: 20px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 12px #00000010;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+  color: #635bff;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  margin-left: 20px;
+  font-weight: 600;
+}
+
+.hero {
+  text-align: center;
+  padding: 85px 20px;
+  background: linear-gradient(135deg, #e8eaff, #f5f7ff);
+}
+
+.hero h1 {
+  font-size: 44px;
+  margin-bottom: 15px;
+}
+
+.hero h1 span {
+  color: #635bff;
+}
+
+.hero p {
+  color: #667085;
+  font-size: 17px;
+}
+
+.search {
+  margin: 30px auto;
+  max-width: 500px;
+}
+
+.search input {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+.tools {
+  padding: 45px 7%;
+}
+
+.tools h2 {
+  margin-bottom: 25px;
+  font-size: 28px;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.tool-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px #00000008;
+  transition: 0.3s;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px #635bff20;
+}
+
+.tool-card h3 {
+  margin: 12px 0;
+}
+
+.tool-card p {
+  color: #667085;
+  font-size: 14px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  background: white;
+  color: #667085;
+}
+
+@media(max-width: 600px) {
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  nav a {
+    margin-left: 8px;
+    font-size: 13px;
+  }
+}
