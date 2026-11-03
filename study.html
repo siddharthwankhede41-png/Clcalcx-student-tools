@@ -100,6 +100,7 @@ button {
 
   <a href="index.html" class="back">← Back to CalcX</a>
 </div>
+>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -135,61 +136,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
     openBtn.addEventListener("click", function () {
 
-  const oldInfo = item.querySelector(".task-details");
+      const oldInfo = item.querySelector(".task-details");
 
-  if (oldInfo) {
-    oldInfo.remove();
-    openBtn.textContent = "Open";
-    return;
-  }
+      if (oldInfo) {
+        oldInfo.remove();
+        openBtn.textContent = "Open";
+        return;
+      }
 
-  const info = document.createElement("div");
-  info.className = "task-details";
+      const info = document.createElement("div");
+      info.className = "task-details";
+      info.style.width = "100%";
+      info.style.padding = "12px";
+      info.style.background = "#dbeafe";
+      info.style.borderRadius = "8px";
 
-  info.style.width = "100%";
-  info.style.padding = "12px";
-  info.style.background = "#dbeafe";
-  info.style.borderRadius = "8px";
+      const classText = document.createElement("p");
+      classText.textContent = "Class: " + className;
 
-  const classText = document.createElement("p");
-  classText.textContent = "Class: " + className;
+      const subjectText = document.createElement("p");
+      subjectText.textContent = "Subject: " + subject;
 
-  const subjectText = document.createElement("p");
-  subjectText.textContent = "Subject: " + subject;
+      const taskText = document.createElement("p");
+      taskText.textContent = "Task: " + task;
 
-  const taskText = document.createElement("p");
-  taskText.textContent = "Task: " + task;
+      const dateText = document.createElement("p");
+      dateText.textContent = "Date: " + date;
 
-  const dateText = document.createElement("p");
-  dateText.textContent = "Date: " + date;
+      info.append(classText, subjectText, taskText, dateText);
+      item.appendChild(info);
 
-  info.append(classText, subjectText, taskText, dateText);
-  item.appendChild(info);
-
-  item.style.flexWrap = "wrap";
-  openBtn.textContent = "Close";
-});
-
-  let info = item.querySelector(".task-details");
-
-  if (info) {
-    info.remove();
-    openBtn.textContent = "Open";
-    return;
-  }
-
-  info = document.createElement("div");
-  info.className = "task-details";
-
-  info.innerHTML =
-    "<p><b>Class:</b> " + className + "</p>" +
-    "<p><b>Subject:</b> " + subject + "</p>" +
-    "<p><b>Task:</b> " + task + "</p>" +
-    "<p><b>Date:</b> " + date + "</p>";
-
-  item.appendChild(info);
-  openBtn.textContent = "Close";
-});
+      item.style.flexWrap = "wrap";
+      openBtn.textContent = "Close";
+    });
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
@@ -208,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
     subjectInput.value = "";
     taskInput.value = "";
     dateInput.value = "";
+
   });
 
 });
