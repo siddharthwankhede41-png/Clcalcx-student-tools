@@ -132,3 +132,33 @@ a.tool-card {
   font-weight: bold;
   font-size: 14px;
 }
+/* Dark Mode */
+body.dark-mode {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+body.dark-mode header,
+body.dark-mode footer,
+body.dark-mode .tool-card,
+body.dark-mode .hero,
+body.dark-mode .tools {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+body.dark-mode input {
+  background: #334155;
+  color: white;
+  border: 1px solid #64748b;
+}
+
+body.dark-mode a {
+  color: #93c5fd;
+}
+
+#themeToggle {
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
