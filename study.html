@@ -103,6 +103,7 @@ button {
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
+  const classInput = document.getElementById("className");
   const subjectInput = document.getElementById("subject");
   const taskInput = document.getElementById("task");
   const dateInput = document.getElementById("date");
@@ -111,11 +112,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   addButton.addEventListener("click", function () {
 
+    const className = classInput.value.trim();
     const subject = subjectInput.value.trim();
     const task = taskInput.value.trim();
     const date = dateInput.value;
 
-    if (!subject || !task || !date) {
+    if (!className || !subject || !task || !date) {
       alert("Please fill all details!");
       return;
     }
@@ -124,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
     item.className = "task";
 
     const details = document.createElement("span");
-    details.textContent = subject + " - " + task;
+    details.textContent = className + " - " + subject;
 
     const openBtn = document.createElement("button");
     openBtn.textContent = "Open";
@@ -132,7 +134,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     openBtn.addEventListener("click", function () {
       alert(
-        "SUBJECT: " + subject +
+        "CLASS: " + className +
+        "\n\nSUBJECT: " + subject +
         "\n\nTASK: " + task +
         "\n\nDATE: " + date
       );
@@ -151,6 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     taskList.appendChild(item);
 
+    classInput.value = "";
     subjectInput.value = "";
     taskInput.value = "";
     dateInput.value = "";
@@ -158,6 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+
 
 </body>
 </html>
