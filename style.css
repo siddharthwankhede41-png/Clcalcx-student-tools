@@ -119,3 +119,16 @@ footer {
     font-size: 13px;
   }
 }
+a.tool-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tool-card span {
+  display: inline-block;
+  margin-top: 15px;
+  color: #635bff;
+  font-weight: bold;
+  font-size: 14px;
+}
