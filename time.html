@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#635bff">
+<title>Time Calculator - CalcX</title>
+<meta name="description" content="Calculate time difference easily with CalcX.">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7ff;
+  color: #172033;
+  padding: 20px;
+}
+
+header {
+  max-width: 500px;
+  margin: 15px auto 30px;
+}
+
+header a {
+  color: #635bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+h1 {
+  text-align: center;
+  color: #635bff;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #667085;
+  margin-bottom: 25px;
+}
+
+.calculator {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px #00000010;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin: 18px 0 8px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 22px;
+  border: none;
+  border-radius: 10px;
+  background: #635bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.result {
+  display: none;
+  margin-top: 22px;
+  padding: 20px;
+  background: #f0efff;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.result h2 {
+  color: #667085;
+  font-size: 16px;
+}
+
+.time-result {
+  font-size: 30px;
+  font-weight: bold;
+  color: #635bff;
+  margin: 15px 0;
+}
+
+.error {
+  color: #d93030;
+  margin-top: 12px;
+}
+
+footer {
+  text-align: center;
+  margin: 30px 0;
+  color: #667085;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html">← Back to CalcX</a>
+</header>
+
+<h1>Time Calculator</h1>
+<p class="subtitle">Calculate the difference between two times.</p>
+
+<div class="calculator">
+
+  <label for="startTime">Start Time</label>
+  <input type="time" id="startTime">
+
+  <label for="endTime">End Time</label>
+  <input type="time" id="endTime">
+
+  <button type="button" id="calculateBtn">
+    Calculate Time Difference
+  </button>
+
+  <p class="error" id="error"></p>
+
+  <div class="result" id="result">
+    <h2>Time Difference</h2>
+    <div class="time-result" id="timeResult">0 Hours</div>
+    <p id="details"></p>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 CalcX. All Rights Reserved.
+</footer>
+
+<script>
+document.getElementById("calculateBtn")
+.addEventListener("click", calculateTime);
+
+function calculateTime() {
+  const start = document.getElementById("startTime").value;
+  const end = document.getElementById("endTime").value;
+
+  const error = document.getElementById("error");
+  const result = document.getElementById("result");
+
+  error.textContent = "";
+  result.style.display = "none";
+
+  if (!start || !end) {
+    error.textContent = "Please enter both start and end times.";
+    return;
+  }
+
+  const [startHour, startMinute] = start.split(":").map(Number);
+  const [endHour, endMinute] = end.split(":").map(Number);
+
+  let startTotal = startHour * 60 + startMinute;
+  let endTotal = endHour * 60 + endMinute;
+
+  let difference = endTotal - startTotal;
+
+  if (difference < 0) {
+    difference += 24 * 60;
+  }
+
+  const hours = Math.floor(difference / 60);
+  const minutes = difference % 60;
+
+  document.getElementById("timeResult").textContent =
+    hours + " Hours " + minutes + " Minutes";
+
+  document.getElementById("details").textContent =
+    "Total: " + difference + " minutes";
+
+  result.style.display = "block";
+}
+</script>
+
+</body>
+</html>
