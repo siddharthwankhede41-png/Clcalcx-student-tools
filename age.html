@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#635bff">
+<title>Age Calculator - CalcX</title>
+<meta name="description" content="Calculate your exact age with CalcX.">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7ff;
+  color: #172033;
+  padding: 20px;
+}
+
+header {
+  max-width: 500px;
+  margin: 15px auto 30px;
+}
+
+header a {
+  color: #635bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+h1 {
+  text-align: center;
+  color: #635bff;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #667085;
+  margin-bottom: 25px;
+}
+
+.calculator {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px #00000010;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin: 18px 0 8px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 22px;
+  border: none;
+  border-radius: 10px;
+  background: #635bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.result {
+  display: none;
+  margin-top: 22px;
+  padding: 20px;
+  background: #f0efff;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.result h2 {
+  color: #667085;
+  font-size: 16px;
+}
+
+.age {
+  font-size: 30px;
+  font-weight: bold;
+  color: #635bff;
+  margin: 15px 0;
+}
+
+.error {
+  color: #d93030;
+  margin-top: 12px;
+}
+
+footer {
+  text-align: center;
+  margin: 30px 0;
+  color: #667085;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html">← Back to CalcX</a>
+</header>
+
+<h1>Age Calculator</h1>
+<p class="subtitle">Calculate your exact age in years, months and days.</p>
+
+<div class="calculator">
+
+  <label for="birthDate">Enter Your Date of Birth</label>
+  <input type="date" id="birthDate">
+
+  <button type="button" id="calculateBtn">
+    Calculate Age
+  </button>
+
+  <p class="error" id="error"></p>
+
+  <div class="result" id="result">
+    <h2>Your Exact Age</h2>
+    <div class="age" id="age">0 Years</div>
+    <p id="details"></p>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 CalcX. All Rights Reserved.
+</footer>
+
+<script>
+document.getElementById("calculateBtn")
+.addEventListener("click", calculateAge);
+
+function calculateAge() {
+  const input = document.getElementById("birthDate").value;
+  const error = document.getElementById("error");
+  const result = document.getElementById("result");
+
+  error.textContent = "";
+  result.style.display = "none";
+
+  if (!input) {
+    error.textContent = "Please enter your date of birth.";
+    return;
+  }
+
+  const [year, month, day] = input.split("-").map(Number);
+  const today = new Date();
+  const birth = new Date(year, month - 1, day);
+
+  if (
+    birth.getFullYear() !== year ||
+    birth.getMonth() !== month - 1 ||
+    birth.getDate() !== day ||
+    birth > new Date(today.getFullYear(), today.getMonth(), today.getDate())
+  ) {
+    error.textContent = "Please enter a valid date of birth.";
+    return;
+  }
+
+  let years = today.getFullYear() - year;
+  let months = today.getMonth() - (month - 1);
+  let days = today.getDate() - day;
+
+  if (days < 0) {
+    months--;
+    const previousMonthDays =
+      new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+    days += previousMonthDays;
+  }
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  document.getElementById("age").textContent =
+    years + " Years";
+
+  document.getElementById("details").textContent =
+    months + " Months and " + days + " Days";
+
+  result.style.display = "block";
+}
+</script>
+
+</body>
+</html>
