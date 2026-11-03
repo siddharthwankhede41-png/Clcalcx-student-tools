@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Planner - CalcX</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f6fc;
+  padding: 20px;
+}
+
+.container {
+  max-width: 500px;
+  margin: 30px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+h1 {
+  text-align: center;
+  color: #2563eb;
+  margin-bottom: 20px;
+}
+
+input, button {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+input {
+  border: 1px solid #ccc;
+}
+
+button {
+  border: none;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.task {
+  background: #f1f5f9;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  overflow-wrap: anywhere;
+}
+
+.task button {
+  width: auto;
+  margin: 0;
+  background: #dc2626;
+  padding: 8px 12px;
+}
+
+.back {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #2563eb;
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>📚 Study Planner</h1>
+
+  <input type="text" id="subject" placeholder="Enter subject name">
+
+  <input type="text" id="task" placeholder="Enter study task">
+
+  <input type="date" id="date">
+
+  <button onclick="addTask()">Add Study Task</button>
+
+  <h3 style="margin-top:20px;">My Study Tasks</h3>
+
+  <div id="taskList"></div>
+
+  <a href="index.html" class="back">← Back to CalcX</a>
+</div>
+
+<script>
+function addTask() {
+  const subject = document.getElementById("subject").value.trim();
+  const task = document.getElementById("task").value.trim();
+  const date = document.getElementById("date").value;
+
+  if (!subject || !task || !date) {
+    alert("Please fill all details!");
+    return;
+  }
+
+  const item = document.createElement("div");
+  item.className = "task";
+
+  const details = document.createElement("span");
+  details.textContent = subject + " - " + task + " (" + date + ")";
+
+  const removeBtn = document.createElement("button");
+  removeBtn.textContent = "Delete";
+  removeBtn.onclick = function() {
+    item.remove();
+  };
+
+  item.appendChild(details);
+  item.appendChild(removeBtn);
+
+  document.getElementById("taskList").appendChild(item);
+
+  document.getElementById("subject").value = "";
+  document.getElementById("task").value = "";
+  document.getElementById("date").value = "";
+}
+</script>
+
+</body>
+</html>
