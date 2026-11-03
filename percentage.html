@@ -174,25 +174,16 @@ footer {
   © 2026 CalcX. All Rights Reserved.
 </footer>
 
+<
 <script>
-  const button = document.getElementById("calculateBtn");
-
-button.addEventListener("click", function () {
-  calculatePercentage();
-});
+document.getElementById("calculateBtn").addEventListener("click", calculatePercentage);
 
 function calculatePercentage() {
+  const obtainedInput = document.getElementById("obtained");
+  const totalInput = document.getElementById("total");
 
-function calculatePercentage() {
-function calculatePercentage() {
-
-  const obtained = Number(
-    document.getElementById("obtained").value
-  );
-
-  const total = Number(
-    document.getElementById("total").value
-  );
+  const obtained = Number(obtainedInput.value);
+  const total = Number(totalInput.value);
 
   const error = document.getElementById("error");
   const result = document.getElementById("result");
@@ -201,8 +192,8 @@ function calculatePercentage() {
   result.style.display = "none";
 
   if (
-    document.getElementById("obtained").value === "" ||
-    document.getElementById("total").value === "" ||
+    obtainedInput.value === "" ||
+    totalInput.value === "" ||
     !Number.isFinite(obtained) ||
     !Number.isFinite(total) ||
     obtained < 0 ||
@@ -243,6 +234,7 @@ function calculatePercentage() {
   result.style.display = "block";
 }
 </script>
+
 
 </body>
 </html>
