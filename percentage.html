@@ -175,7 +175,13 @@ footer {
 </footer>
 
 <script>
-  document.getElementById("calculateBtn").addEventListener("click", calculatePercentage);
+  const button = document.getElementById("calculateBtn");
+
+button.addEventListener("click", function () {
+  calculatePercentage();
+});
+
+function calculatePercentage() {
 
 function calculatePercentage() {
 function calculatePercentage() {
