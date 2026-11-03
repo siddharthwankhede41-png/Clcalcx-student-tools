@@ -154,8 +154,8 @@ footer {
   <input type="number" id="total"
     placeholder="Enter total marks" min="1">
 
-  <button onclick="calculatePercentage()">
-    Calculate Percentage
+  <button type="button" id="calculateBtn">
+  Calculate Percentage
   </button>
 
   <p class="error" id="error"></p>
@@ -175,6 +175,9 @@ footer {
 </footer>
 
 <script>
+  document.getElementById("calculateBtn").addEventListener("click", calculatePercentage);
+
+function calculatePercentage() {
 function calculatePercentage() {
 
   const obtained = Number(
