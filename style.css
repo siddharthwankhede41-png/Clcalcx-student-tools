@@ -184,3 +184,17 @@ body.dark-mode a {
     max-width: 100%;
   }
 }
+/* Accessibility - Link Visibility */
+a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+nav a {
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: 3px solid #635bff;
+  outline-offset: 3px;
+}
